@@ -30,7 +30,7 @@
             "src": "ios"
         },
         "android": {
-            "src": "android"
+            "src": "android/capacitor-zendesk-support-sdk"
         }
     },
     "peerDependencies": {

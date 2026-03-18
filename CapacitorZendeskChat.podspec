@@ -16,7 +16,7 @@ require 'json'
     s.dependency 'ZendeskChatSDK'
     s.dependency 'ZendeskMessagingSDK'
     s.static_framework = true
-    s.source = { :git => 'https://github.com/sencrop/capacitor-zendesk-chat', :tag => s.version.to_s }
+    s.source = { :git => 'https://github.com/dsteinel/capacitor-zendesk-support-sdk', :tag => s.version.to_s }
     s.source_files = 'ios/CapacitorZendeskChat/Source/*.{swift,h,m}'
     s.swift_version = '5.0'
   end

@@ -6,7 +6,8 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react'
-import { ZendeskChat } from 'capacitor-zendesk-chat'
+import { ZendeskChat } from 'capacitor-zendesk-support-sdk';
+
 import React from 'react'
 
 const Home: React.FC = () => {
