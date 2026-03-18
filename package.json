@@ -16,7 +16,7 @@
         "dist/",
         "ios/",
         "android/",
-        "CapacitorZendeskChat.podspec",
+        "CapacitorZendeskSupportSdk.podspec",
         "Package.swift"
     ],
     "keywords": [

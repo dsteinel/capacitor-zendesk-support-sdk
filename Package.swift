@@ -2,14 +2,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "CapacitorZendeskChat",
+    name: "CapacitorZendeskSupportSdk",
     platforms: [
         .iOS(.v15)
     ],
     products: [
         .library(
-            name: "CapacitorZendeskChat",
-            targets: ["CapacitorZendeskChat", "CapacitorZendeskChatObjc"]
+            name: "CapacitorZendeskSupportSdk",
+            targets: ["CapacitorZendeskSupportSdk", "CapacitorZendeskSupportSdkObjc"]
         ),
     ],
     dependencies: [
@@ -20,22 +20,22 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "CapacitorZendeskChat",
+            name: "CapacitorZendeskSupportSdk",
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "ZendeskSupportSDK", package: "support_sdk_ios"),
                 .product(name: "ZendeskChatSDK", package: "chat_sdk_ios"),
                 .product(name: "ZendeskMessagingSDK", package: "messaging_sdk_ios")
             ],
-            path: "ios/CapacitorZendeskChat/Source/CapacitorZendeskChat"
+            path: "ios/CapacitorZendeskSupportSdk/Source/CapacitorZendeskSupportSdk"
         ),
         .target(
-            name: "CapacitorZendeskChatObjc",
+            name: "CapacitorZendeskSupportSdkObjc",
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
-                "CapacitorZendeskChat"
+                "CapacitorZendeskSupportSdk"
             ],
-            path: "ios/CapacitorZendeskChat/Source/CapacitorZendeskChatObjc",
+            path: "ios/CapacitorZendeskSupportSdk/Source/CapacitorZendeskSupportSdkObjc",
             publicHeadersPath: "."
         )
     ]

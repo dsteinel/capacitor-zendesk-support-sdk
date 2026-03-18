@@ -4,7 +4,7 @@ require 'json'
     # NPM package specification
     package = JSON.parse(File.read(File.join(File.dirname(__FILE__), 'package.json')))
 
-    s.name = 'CapacitorZendeskChat'
+    s.name = 'CapacitorZendeskSupportSdk'
     s.version = package['version']
     s.summary = package['description']
     s.license = package['license']
@@ -17,6 +17,6 @@ require 'json'
     s.dependency 'ZendeskMessagingSDK'
     s.static_framework = true
     s.source = { :git => 'https://github.com/dsteinel/capacitor-zendesk-support-sdk', :tag => s.version.to_s }
-    s.source_files = 'ios/CapacitorZendeskChat/Source/*.{swift,h,m}'
+    s.source_files = 'ios/CapacitorZendeskSupportSdk/Source/**/*.{swift,h,m}'
     s.swift_version = '5.0'
   end
