@@ -1,9 +1,8 @@
 {
-    "name": "capacitor-zendesk-chat",
-    "version": "1.0.0-beta.4",
-    "description": "Zendesk Chat plugin for Capacitor",
+    "name": "capacitor-zendesk-support-sdk",
+    "version": "1.0.0",
+    "description": "Zendesk Support SDK plugin for Capacitor",
     "author": "Paul Bottein",
-    "homepage": "https://github.com/sencrop/capacitor-zendesk-chat",
     "license": "MIT",
     "main": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
@@ -17,13 +16,14 @@
         "dist/",
         "ios/",
         "android/",
-        "CapacitorZendeskChat.podspec"
+        "CapacitorZendeskChat.podspec",
+        "Package.swift"
     ],
     "keywords": [
         "capacitor",
         "capacitor-plugin",
         "zendesk",
-        "zendesk-chat"
+        "support-sdk"
     ],
     "capacitor": {
         "ios": {
@@ -33,23 +33,13 @@
             "src": "android"
         }
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/sencrop/capacitor-zendesk-chat"
-    },
-    "bugs": {
-        "url": "https://github.com/sencrop/capacitor-zendesk-chat/issues"
-    },
-    "publishConfig": {
-        "access": "public"
-    },
     "peerDependencies": {
         "@capacitor/core": "^8.0.0"
     },
     "devDependencies": {
-        "@capacitor/android": "^8.2.0",
-        "@capacitor/core": "^8.2.0",
-        "@capacitor/ios": "^8.2.0",
-        "typescript": "^5.9.3"
+        "@capacitor/android": "^8.0.0",
+        "@capacitor/core": "^8.0.0",
+        "@capacitor/ios": "^8.0.0",
+        "typescript": "^5.0.0"
     }
 }
