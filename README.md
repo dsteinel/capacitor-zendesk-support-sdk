@@ -1,99 +1,144 @@
-# Capacitor Zendesk Chat plugin
+# Capacitor Zendesk Support SDK (Classic)
 
-/!\ The plugin only works for `android` and `ios` platform. /!\
+Capacitor plugin for integrating the **Zendesk Support SDK (Classic/Unified)** into your cross-platform apps.
+
+## Features
+
+- **Capacitor 8 Support**: Fully compatible with the latest Capacitor version.
+- **Native UI**: Uses Zendesk's native UI components for iOS and Android.
+- **Support SDK Suite**:
+  - Help Center (Knowledge Base)
+  - Ticket List (User Requests)
+  - Ticket Creation (Contact Us Form)
+  - Unified Messaging interface.
+- **Web Support**: Integrates with the Zendesk Web Widget (Classic).
 
 ## Installation
 
-`npm i capacitor-zendesk-chat`
+```bash
+npm install git+ssh://git@github.com:dsteinel/capacitor-zendesk-support-sdk.git
+npx cap sync
+```
 
-## Configuration
+### Android Configuration
 
-### Configure plugin 
+In your **app's** `build.gradle` or `settings.gradle`, add the Zendesk Maven repository:
 
-Add your key on `capacitor.json` and sync it with `npx cap sync`.
-```json
-{
-  "plugins": {
-    "ZendeskChat": {
-      "accountKey": "your-zendesk-account--key"
+```gradle
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
     }
-  }
 }
-
-```
-### Register plugin
-
-Find the init component of your app and register the web plugin.
-
-```javascript
-import { registerWebPlugin } from "@capacitor/core";
-import { ZendeskChat } from 'capacitor-zendesk-chat';
-
-registerWebPlugin(ZendeskChat);
 ```
 
-### Use it
+### iOS Configuration
 
-```javascript
-import { Plugins } from '@capacitor/core';
+In Capacitor 8, the plugin is automatically linked via Swift Package Manager (SPM). No additional steps are required beyond `npx cap sync ios`.
 
-const { ZendeskChat } = Plugins;
+---
 
-// Initialize the plugin
-ZendeskChat.initialize();
+## Usage
 
-// Add Visitor info if needed
-ZendeskChat.setVisitorInfo({
-  name: "John Doe",
-  email: "john@doe.com",
-  phoneNumber: "+33 1 23 45 67 89"
-})
+### 1. Initialization
 
-// Open chat
-ZendeskChat.open({
-  tags: ["tag1", "tag2"], // You can add tags
-  department: "department" // You can specify a department
+Initialize the SDK with your Zendesk credentials. You can find these in your Zendesk Admin Center under **Channels > Classic > Mobile SDK**.
+
+```typescript
+import { ZendeskChat } from 'capacitor-zendesk-support-sdk';
+
+await ZendeskChat.initialize({
+  appId: 'YOUR_APP_ID',
+  clientId: 'mobile_sdk_client_YOUR_CLIENT_ID',
+  zendeskUrl: 'https://your_domain.zendesk.com'
 });
 ```
 
-## Platform: Web/PWA
+### 2. Set Visitor Identity
 
-The plugin is not available on `web` platform.
+Identify the user so their tickets are correctly linked.
 
-## Platform: Android
-
-
-**Import the Zendesk Chat library** in `build.gradle`
-
-```groovy
-...
-// Note that this is root level repositories container and not the one under 'buildScript'
-repositories {
-    maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
-}
-...
-dependencies {
-    compile group: 'com.zopim.android', name: 'sdk-api', version: '1.4.2'
-}
-...
+```typescript
+await ZendeskChat.setVisitorInfo({
+  name: 'John Doe',
+  email: 'john@example.com'
+});
 ```
 
-**Register the plugin** in `com.companyname.appname.MainActivity#onCreate`
+### 3. Launch UI Components
 
-```java
-@Override
-public void onCreate(Bundle savedInstanceState) {
-  super.onCreate(savedInstanceState);
+```typescript
+// Open the Help Center
+await ZendeskChat.openHelpCenter({});
 
-    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
+// Open the Ticket List (My Requests)
+await ZendeskChat.openTicketList();
 
-    ...
+// Open the Ticket Creation form
+await ZendeskChat.createTicket();
 
-    add(ZendeskChat.class); // Add ZendeskChat Plugin
-  }});
-}
+// Open the Unified Messaging/Chat UI
+await ZendeskChat.open({});
 ```
 
-## Platform: iOS
+---
 
-On iOS the plugin is registered automatically by Capacitor.
+## Example Project
+
+A complete **Ionic React** example project is available in the `/example` directory.
+
+### Where to add your API Keys
+Open `example/src/pages/Home.tsx` and replace the placeholders:
+- `YOUR_APP_ID`
+- `mobile_sdk_client_YOUR_CLIENT_ID`
+- `https://your_domain.zendesk.com`
+
+### How to run the example
+
+1.  **Setup**:
+    ```bash
+    cd example
+    npm install
+    ```
+
+2.  **Web**:
+    ```bash
+    npm run dev
+    ```
+
+3.  **iOS**:
+    ```bash
+    npm run dev:ios
+    ```
+
+4.  **Android**:
+    ```bash
+    npm run dev:android
+    ```
+
+---
+
+## Integration in another project
+
+To use this plugin in your own Ionic React project:
+
+1.  **Add the plugin**:
+    ```bash
+    npm install git+ssh://git@github.com:dsteinel/capacitor-zendesk-support-sdk.git
+    ```
+2.  **Sync native platforms**:
+    ```bash
+    npx cap sync
+    ```
+3.  **Import and use**:
+    ```typescript
+    import { ZendeskChat } from 'capacitor-zendesk-support-sdk';
+    
+    // ... inside your component
+    const handleSupport = async () => {
+      await ZendeskChat.initialize({ ... });
+      await ZendeskChat.openHelpCenter({});
+    };
+    ```
