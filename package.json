@@ -1,6 +1,6 @@
 {
     "name": "capacitor-zendesk-support-sdk",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "description": "Zendesk Support SDK plugin for Capacitor",
     "author": "Paul Bottein",
     "license": "MIT",
