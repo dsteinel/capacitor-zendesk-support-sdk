@@ -32,6 +32,36 @@ public class ZendeskChat extends Plugin {
         Zendesk.INSTANCE.init(context, zendeskUrl, appId, clientId);
         Support.INSTANCE.init(Zendesk.INSTANCE);
 
+        if (call.hasOption("theme")) {
+            // Theme customization is handled in setTheme
+            setTheme(call);
+        }
+
+        if (call.hasOption("locale")) {
+            setLocale(call);
+        }
+
+        call.resolve();
+    }
+
+    @PluginMethod()
+    public void setTheme(PluginCall call) {
+        // For the Unified/Classic SDK on Android, theme customization is primarily done via XML styles.
+        // Programmatic color adjustment is not directly supported by the Zendesk Support SDK activities.
+        // We log this as a reminder that XML styles should be used for Android branding.
+        String primaryColor = call.getString("primaryColor");
+        if (primaryColor != null) {
+            android.util.Log.w("ZendeskChat", "setTheme: Programmatic primaryColor customization is not supported on Android Unified SDK. Please use XML styles.");
+        }
+        call.resolve();
+    }
+
+    @PluginMethod()
+    public void setLocale(PluginCall call) {
+        String locale = call.getString("locale");
+        if (locale != null) {
+            Support.INSTANCE.setHelpCenterLocaleOverride(locale);
+        }
         call.resolve();
     }
 

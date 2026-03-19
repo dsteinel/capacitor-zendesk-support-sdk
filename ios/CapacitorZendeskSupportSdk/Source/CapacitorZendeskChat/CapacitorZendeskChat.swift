@@ -16,6 +16,8 @@ public class ZendeskChat: CAPPlugin, CAPBridgedPlugin {
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "initialize", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "setVisitorInfo", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "setTheme", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "setLocale", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "open", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "openHelpCenter", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "openTicketList", returnType: CAPPluginReturnPromise),
@@ -33,7 +35,43 @@ public class ZendeskChat: CAPPlugin, CAPBridgedPlugin {
         DispatchQueue.main.async {
             ZendeskCoreSDK.Zendesk.initialize(appId: appId, clientId: clientId, zendeskUrl: zendeskUrl)
             SupportSDK.Support.initialize(withZendesk: ZendeskCoreSDK.Zendesk.instance)
+            
+            if let theme = call.getObject("theme") {
+                self.applyTheme(theme)
+            }
+
+            if let locale = call.getString("locale") {
+                SupportSDK.Support.instance?.helpCenterLocaleOverride = locale
+            }
+            
             call.resolve()
+        }
+    }
+
+    @objc func setTheme(_ call: CAPPluginCall) {
+        let theme = call.options
+        DispatchQueue.main.async {
+            self.applyTheme(theme)
+            call.resolve()
+        }
+    }
+
+    @objc func setLocale(_ call: CAPPluginCall) {
+        guard let locale = call.getString("locale") else {
+            call.reject("Missing locale")
+            return
+        }
+
+        DispatchQueue.main.async {
+            SupportSDK.Support.instance?.helpCenterLocaleOverride = locale
+            call.resolve()
+        }
+    }
+
+    private func applyTheme(_ theme: [String: Any]) {
+        if let primaryColorHex = theme["primaryColor"] as? String,
+           let color = UIColor(hex: primaryColorHex) {
+            SupportSDK.CommonTheme.currentTheme.primaryColor = color
         }
     }
 
@@ -89,6 +127,37 @@ public class ZendeskChat: CAPPlugin, CAPBridgedPlugin {
             let navigationController = UINavigationController(rootViewController: viewController)
             self.bridge?.viewController?.present(navigationController, animated: true, completion: nil)
             call.resolve()
+        }
+    }
+}
+
+extension UIColor {
+    convenience init?(hex: String) {
+        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
+
+        var rgb: UInt64 = 0
+
+        let length = hexSanitized.count
+
+        guard Scanner(string: hexSanitized).scanHexInt64(&rgb) else { return nil }
+
+        if length == 6 {
+            self.init(
+                red: CGFloat((rgb & 0xFF0000) >> 16) / 255.0,
+                green: CGFloat((rgb & 0x00FF00) >> 8) / 255.0,
+                blue: CGFloat(rgb & 0x0000FF) / 255.0,
+                alpha: 1.0
+            )
+        } else if length == 8 {
+            self.init(
+                red: CGFloat((rgb & 0xFF000000) >> 24) / 255.0,
+                green: CGFloat((rgb & 0x00FF0000) >> 16) / 255.0,
+                blue: CGFloat((rgb & 0x0000FF00) >> 8) / 255.0,
+                alpha: CGFloat(rgb & 0x000000FF) / 255.0
+            )
+        } else {
+            return nil
         }
     }
 }

@@ -85,6 +85,45 @@ await ZendeskChat.open({});
 
 ---
 
+## Branding & Customization
+
+You can customize the **Primary Color** and **Language (Locale)** during initialization or dynamically at runtime.
+
+### 1. During Initialization
+
+```typescript
+await ZendeskChat.initialize({
+  appId: '...',
+  clientId: '...',
+  zendeskUrl: '...',
+  theme: {
+    primaryColor: '#8a2be2' // Hex color code
+  },
+  locale: 'fr-FR' // BCP 47 language tag (e.g., 'en-US', 'fr-FR')
+});
+```
+
+### 2. Dynamically Update at Runtime
+
+```typescript
+// Update the primary branding color (iOS and Web only)
+await ZendeskChat.setTheme({ primaryColor: '#3880ff' });
+
+// Update the language/locale (iOS, Android, and Web)
+await ZendeskChat.setLocale({ locale: 'en-US' });
+```
+
+> **Note for Android**: Programmatic color customization is limited on the Android Classic/Unified SDK. For Android branding, please customize your app's `styles.xml` to target Zendesk's activity themes.
+
+### Help Center Article Styling
+
+You can customize the appearance of articles in the Help Center by adding a file named **`help_center_article_style.css`** to your native projects. The SDK automatically detects and applies this file to the native WebView.
+
+- **Android**: Place the file in `src/main/assets/help_center_article_style.css`.
+- **iOS**: Place the file in your app's root folder and add it to your Xcode project's **"Copy Bundle Resources"** build phase.
+
+---
+
 ## Example Project
 
 A complete **Ionic React** example project is available in the `/example` directory.

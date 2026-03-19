@@ -7,14 +7,23 @@ export interface VisitorInfo {
     email?: string;
     phoneNumber?: string;
 }
+export interface ZendeskTheme {
+    primaryColor?: string;
+}
 export interface InitializeOptions {
     appId: string;
     clientId: string;
     zendeskUrl: string;
+    theme?: ZendeskTheme;
+    locale?: string;
 }
 export interface ZendeskChatPlugin {
     initialize(options: InitializeOptions): Promise<void>;
     setVisitorInfo(visitorInfo: VisitorInfo): Promise<void>;
+    setTheme(theme: ZendeskTheme): Promise<void>;
+    setLocale(options: {
+        locale: string;
+    }): Promise<void>;
     open(config: ChatConfig): Promise<void>;
     openHelpCenter(config: ChatConfig): Promise<void>;
     openTicketList(): Promise<void>;

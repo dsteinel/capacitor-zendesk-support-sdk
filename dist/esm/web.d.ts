@@ -1,5 +1,5 @@
 import { WebPlugin } from '@capacitor/core';
-import { ZendeskChatPlugin, ChatConfig, VisitorInfo, InitializeOptions } from './definitions';
+import { ZendeskChatPlugin, ChatConfig, VisitorInfo, InitializeOptions, ZendeskTheme } from './definitions';
 declare global {
     interface Window {
         zE: any;
@@ -8,6 +8,10 @@ declare global {
 }
 export declare class ZendeskChatWeb extends WebPlugin implements ZendeskChatPlugin {
     initialize(options: InitializeOptions): Promise<void>;
+    setTheme(theme: ZendeskTheme): Promise<void>;
+    setLocale(options: {
+        locale: string;
+    }): Promise<void>;
     open(config: ChatConfig): Promise<void>;
     openHelpCenter(config: ChatConfig): Promise<void>;
     openTicketList(): Promise<void>;

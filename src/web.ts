@@ -1,5 +1,5 @@
 import { WebPlugin } from '@capacitor/core';
-import { ZendeskChatPlugin, ChatConfig, VisitorInfo, InitializeOptions } from './definitions';
+import { ZendeskChatPlugin, ChatConfig, VisitorInfo, InitializeOptions, ZendeskTheme } from './definitions';
 
 declare global {
   interface Window {
@@ -18,6 +18,14 @@ export class ZendeskChatWeb extends WebPlugin implements ZendeskChatPlugin {
     if (!options.appId) {
       console.error('Zendesk Web: appId is required for initialization.');
       return;
+    }
+
+    if (options.theme) {
+      await this.setTheme(options.theme);
+    }
+
+    if (options.locale) {
+      await this.setLocale({ locale: options.locale });
     }
 
     return new Promise((resolve, reject) => {
@@ -43,6 +51,42 @@ export class ZendeskChatWeb extends WebPlugin implements ZendeskChatPlugin {
 
       document.head.appendChild(script);
     });
+  }
+
+  async setTheme(theme: ZendeskTheme): Promise<void> {
+    if (theme.primaryColor) {
+      window.zESettings = {
+        ...window.zESettings,
+        webWidget: {
+          ...window.zESettings?.webWidget,
+          color: {
+            theme: theme.primaryColor,
+            launcher: theme.primaryColor, // Ensure launcher also reflects the theme
+          }
+        }
+      };
+      
+      if (window.zE) {
+        window.zE('webWidget', 'updateSettings', window.zESettings);
+      }
+    }
+    console.log('Zendesk Web: setTheme', theme);
+  }
+
+  async setLocale(options: { locale: string }): Promise<void> {
+    window.zESettings = {
+      ...window.zESettings,
+      webWidget: {
+        ...window.zESettings?.webWidget,
+        locale: options.locale
+      }
+    };
+    
+    if (window.zE) {
+      window.zE('webWidget', 'updateSettings', window.zESettings);
+      window.zE('webWidget', 'setLocale', options.locale);
+    }
+    console.log('Zendesk Web: setLocale', options.locale);
   }
 
   async open(config: ChatConfig): Promise<void> {
