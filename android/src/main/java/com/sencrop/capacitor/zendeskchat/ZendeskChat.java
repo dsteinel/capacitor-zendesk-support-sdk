@@ -6,6 +6,8 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 
+import java.util.Locale;
+
 import zendesk.core.AnonymousIdentity;
 import zendesk.core.Zendesk;
 import zendesk.support.Support;
@@ -58,8 +60,9 @@ public class ZendeskChat extends Plugin {
 
     @PluginMethod()
     public void setLocale(PluginCall call) {
-        String locale = call.getString("locale");
-        if (locale != null) {
+        String localeString = call.getString("locale");
+        if (localeString != null) {
+            Locale locale = Locale.forLanguageTag(localeString);
             Support.INSTANCE.setHelpCenterLocaleOverride(locale);
         }
         call.resolve();

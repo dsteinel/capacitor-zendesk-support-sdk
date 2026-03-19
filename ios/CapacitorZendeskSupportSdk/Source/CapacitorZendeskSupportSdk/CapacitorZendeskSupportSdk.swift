@@ -2,6 +2,7 @@ import Foundation
 import Capacitor
 import ZendeskCoreSDK
 import SupportSDK
+import CommonUISDK
 import ChatSDK
 import MessagingSDK
 
@@ -49,7 +50,7 @@ public class ZendeskChat: CAPPlugin, CAPBridgedPlugin {
     }
 
     @objc func setTheme(_ call: CAPPluginCall) {
-        let theme = call.options
+        let theme = call.options as? [String: Any] ?? [:]
         DispatchQueue.main.async {
             self.applyTheme(theme)
             call.resolve()
@@ -71,7 +72,7 @@ public class ZendeskChat: CAPPlugin, CAPBridgedPlugin {
     private func applyTheme(_ theme: [String: Any]) {
         if let primaryColorHex = theme["primaryColor"] as? String,
            let color = UIColor(hex: primaryColorHex) {
-            SupportSDK.CommonTheme.currentTheme.primaryColor = color
+            CommonUISDK.CommonTheme.currentTheme.primaryColor = color
         }
     }
 
