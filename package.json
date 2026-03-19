@@ -1,8 +1,8 @@
 {
     "name": "capacitor-zendesk-support-sdk",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Zendesk Support SDK plugin for Capacitor",
-    "author": "Paul Bottein",
+    "author": "Dimitri Steinel",
     "license": "MIT",
     "homepage": "https://github.com/dsteinel/capacitor-zendesk-support-sdk",
     "repository": {
@@ -15,7 +15,8 @@
         "build": "npm run clean && tsc",
         "clean": "rm -rf ./dist",
         "watch": "tsc --watch",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "npm run build",
+        "publish:npm": "npm publish"
     },
     "files": [
         "dist/",
