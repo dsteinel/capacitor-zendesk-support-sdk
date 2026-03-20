@@ -28,7 +28,7 @@ import {
   walletOutline,
 } from 'ionicons/icons'
 import React, { useEffect, useState } from 'react'
-import './Home.css'
+import styles from './Home.module.css'
 
 const Home: React.FC = () => {
   const [initialized, setInitialized] = useState(false)
@@ -75,14 +75,14 @@ const Home: React.FC = () => {
   }
 
   return (
-    <IonPage className='support-page'>
+    <IonPage className={styles.supportPage}>
       <IonHeader className='ion-no-border'>
         <IonToolbar>
           <IonButtons slot='start'>
             <IonBackButton
               defaultHref='/home'
               icon={chevronBackOutline}
-              className='back-button'
+              className={styles.backButton}
             />
           </IonButtons>
           <IonTitle>Hilfe & Support</IonTitle>
@@ -90,26 +90,26 @@ const Home: React.FC = () => {
       </IonHeader>
 
       <IonContent className='ion-padding' scrollY={true}>
-        <div className='main-container'>
+        <div className={styles.mainContainer}>
           {/* Hero Section */}
-          <section className='hero-section'>
-            <h2 className='hero-headline'>Wie können wir dir helfen?</h2>
+          <section className={styles.heroSection}>
+            <h2 className={styles.heroHeadline}>Wie können wir dir helfen?</h2>
           </section>
 
           {/* Action Grid */}
           <IonGrid className='ion-no-padding'>
-            <IonRow className='action-column'>
+            <IonRow className={styles.actionColumn}>
               <IonCol size='12'>
-                <button className='action-card group' onClick={openHelpCenter}>
-                  <div className='icon-wrapper primary-bg'>
+                <button className={`${styles.actionCard} group`} onClick={openHelpCenter}>
+                  <div className={`${styles.iconWrapper} ${styles.primaryBg}`}>
                     <IonIcon
                       icon={documentTextOutline}
-                      className='action-icon'
+                      className={styles.actionIcon}
                     />
                   </div>
-                  <div className='card-content'>
-                    <h3 className='card-title'>Help Center</h3>
-                    <p className='card-description'>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.cardTitle}>Help Center</h3>
+                    <p className={styles.cardDescription}>
                       Antworten auf die häufigsten Fragen finden.
                     </p>
                   </div>
@@ -117,16 +117,16 @@ const Home: React.FC = () => {
               </IonCol>
 
               <IonCol size='12'>
-                <button className='action-card group' onClick={openMessaging}>
-                  <div className='icon-wrapper secondary-bg'>
+                <button className={`${styles.actionCard} group`} onClick={openMessaging}>
+                  <div className={`${styles.iconWrapper} ${styles.secondaryBg}`}>
                     <IonIcon
                       icon={chatbubbleEllipsesOutline}
-                      className='action-icon'
+                      className={styles.actionIcon}
                     />
                   </div>
-                  <div className='card-content'>
-                    <h3 className='card-title'>Live Chat</h3>
-                    <p className='card-description'>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.cardTitle}>Live Chat</h3>
+                    <p className={styles.cardDescription}>
                       Direkte Hilfe von unserem Support-Team.
                     </p>
                   </div>
@@ -134,13 +134,13 @@ const Home: React.FC = () => {
               </IonCol>
 
               <IonCol size='12'>
-                <button className='action-card group' onClick={openTicketList}>
-                  <div className='icon-wrapper gray-bg'>
-                    <IonIcon icon={receiptOutline} className='action-icon' />
+                <button className={`${styles.actionCard} group`} onClick={openTicketList}>
+                  <div className={`${styles.iconWrapper} ${styles.grayBg}`}>
+                    <IonIcon icon={receiptOutline} className={styles.actionIcon} />
                   </div>
-                  <div className='card-content'>
-                    <h3 className='card-title'>Meine Tickets</h3>
-                    <p className='card-description'>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.cardTitle}>Meine Tickets</h3>
+                    <p className={styles.cardDescription}>
                       Status deiner bisherigen Anfragen prüfen.
                     </p>
                   </div>
@@ -148,13 +148,13 @@ const Home: React.FC = () => {
               </IonCol>
 
               <IonCol size='12'>
-                <button className='action-card group' onClick={createTicket}>
-                  <div className='icon-wrapper tertiary-bg'>
-                    <IonIcon icon={createOutline} className='action-icon' />
+                <button className={`${styles.actionCard} group`} onClick={createTicket}>
+                  <div className={`${styles.iconWrapper} ${styles.tertiaryBg}`}>
+                    <IonIcon icon={createOutline} className={styles.actionIcon} />
                   </div>
-                  <div className='card-content'>
-                    <h3 className='card-title'>Neues Ticket</h3>
-                    <p className='card-description'>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.cardTitle}>Neues Ticket</h3>
+                    <p className={styles.cardDescription}>
                       Ein neues Support-Ticket erstellen.
                     </p>
                   </div>
@@ -164,39 +164,39 @@ const Home: React.FC = () => {
           </IonGrid>
 
           {/* Contact CTA Section */}
-          <section className='contact-cta-card'>
-            <div className='cta-content'>
-              <h3 className='cta-title'>Noch Fragen offen?</h3>
-              <p className='cta-description'>
+          <section className={styles.contactCtaCard}>
+            <div className={styles.ctaContent}>
+              <h3 className={styles.ctaTitle}>Noch Fragen offen?</h3>
+              <p className={styles.ctaDescription}>
                 Unser technisches Support-Team ist rund um die Uhr für dich da.
               </p>
               <IonButton
                 expand='block'
-                className='cta-button'
+                className={styles.ctaButton}
                 onClick={openMessaging}
               >
                 Kontakt aufnehmen
               </IonButton>
             </div>
-            <div className='decorative-element-1'></div>
-            <div className='decorative-element-2'></div>
+            <div className={styles.decorativeElement1}></div>
+            <div className={styles.decorativeElement2}></div>
           </section>
         </div>
       </IonContent>
 
       <IonFooter className='ion-no-border'>
-        <IonTabBar slot='bottom' className='custom-tab-bar'>
-          <IonTabButton tab='invest' className='custom-tab-button'>
+        <IonTabBar slot='bottom' className={styles.customTabBar}>
+          <IonTabButton tab='invest' className={styles.customTabButton}>
             <IonIcon icon={trendingUpOutline} />
             <IonLabel>Investieren</IonLabel>
           </IonTabButton>
 
-          <IonTabButton tab='wallet' className='custom-tab-button'>
+          <IonTabButton tab='wallet' className={styles.customTabButton}>
             <IonIcon icon={walletOutline} />
             <IonLabel>Wallet</IonLabel>
           </IonTabButton>
 
-          <IonTabButton tab='history' className='custom-tab-button'>
+          <IonTabButton tab='history' className={styles.customTabButton}>
             <IonIcon icon={timeOutline} />
             <IonLabel>Historie</IonLabel>
           </IonTabButton>

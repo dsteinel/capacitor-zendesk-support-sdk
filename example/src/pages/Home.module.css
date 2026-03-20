@@ -8,33 +8,34 @@
   --support-text-variant: #3e4a3c;
 }
 
-.support-page {
+.supportPage {
   --background: var(--support-bg);
   font-family: 'Inter', sans-serif;
 }
 
-.support-page IonHeader IonToolbar {
+/* Using global to target the custom elements inside IonHeader and IonToolbar */
+.supportPage :global(ion-toolbar) {
   --background: var(--support-bg);
   --color: var(--support-text);
   --padding-top: 12px;
   --padding-bottom: 12px;
 }
 
-.back-button {
+.backButton {
   --color: var(--support-primary);
 }
 
-.main-container {
+.mainContainer {
   max-width: 672px;
   margin: 0 auto;
   padding-bottom: 40px;
 }
 
-.hero-section {
+.heroSection {
   padding: 32px 0;
 }
 
-.hero-headline {
+.heroHeadline {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 2.25rem;
   font-weight: 800;
@@ -43,11 +44,13 @@
   color: var(--support-text);
 }
 
-.action-column {
+.actionColumn {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
 }
 
-.action-card {
+.actionCard {
   display: flex;
   align-items: center;
   width: 100%;
@@ -60,11 +63,11 @@
   cursor: pointer;
 }
 
-.action-card:active {
+.actionCard:active {
   transform: scale(0.95);
 }
 
-.icon-wrapper {
+.iconWrapper {
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -75,16 +78,21 @@
   flex-shrink: 0;
 }
 
-.primary-bg { background: rgba(0, 110, 37, 0.1); color: var(--support-primary); }
-.secondary-bg { background: rgba(99, 44, 229, 0.1); color: var(--support-secondary); }
-.gray-bg { background: rgba(62, 74, 60, 0.2); color: var(--support-text); }
-.tertiary-bg { background: rgba(188, 0, 75, 0.1); color: var(--support-tertiary); }
+.primaryBg { background: rgba(0, 110, 37, 0.1); color: var(--support-primary); }
+.secondaryBg { background: rgba(99, 44, 229, 0.1); color: var(--support-secondary); }
+.grayBg { background: rgba(62, 74, 60, 0.2); color: var(--support-text); }
+.tertiaryBg { background: rgba(188, 0, 75, 0.1); color: var(--support-tertiary); }
 
-.action-icon {
+.actionIcon {
   font-size: 24px;
 }
 
-.card-title {
+.cardContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.125rem;
   font-weight: 700;
@@ -92,14 +100,14 @@
   color: var(--support-text);
 }
 
-.card-description {
+.cardDescription {
   font-size: 0.875rem;
   margin: 0;
   color: var(--support-text-variant);
   line-height: 1.5;
 }
 
-.contact-cta-card {
+.contactCtaCard {
   position: relative;
   overflow: hidden;
   background: var(--support-primary);
@@ -109,12 +117,12 @@
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.cta-content {
+.ctaContent {
   position: relative;
   z-index: 10;
 }
 
-.cta-title {
+.ctaTitle {
   color: white;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.5rem;
@@ -122,14 +130,14 @@
   margin: 0 0 12px 0;
 }
 
-.cta-description {
+.ctaDescription {
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.875rem;
   margin: 0 0 32px 0;
   max-width: 280px;
 }
 
-.cta-button {
+.ctaButton {
   --background: white;
   --color: var(--support-primary);
   --border-radius: 9999px;
@@ -138,7 +146,7 @@
   margin: 0;
 }
 
-.decorative-element-1 {
+.decorativeElement1 {
   position: absolute;
   top: 0;
   right: 0;
@@ -151,7 +159,7 @@
   filter: blur(64px);
 }
 
-.decorative-element-2 {
+.decorativeElement2 {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -164,7 +172,7 @@
   filter: blur(48px);
 }
 
-.custom-tab-bar {
+.customTabBar {
   --background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
   border-top: 1px solid rgba(203, 213, 225, 0.15);
@@ -172,12 +180,12 @@
   padding-top: 12px;
 }
 
-.custom-tab-button {
+.customTabButton {
   --color: #94a3b8;
   --color-selected: var(--support-primary);
 }
 
-.custom-tab-button IonLabel {
+.customTabButton :global(ion-label) {
   font-size: 11px;
   font-weight: 500;
   text-transform: uppercase;
