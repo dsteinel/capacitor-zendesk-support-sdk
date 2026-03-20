@@ -16,7 +16,7 @@
         "clean": "rm -rf ./dist",
         "watch": "tsc --watch",
         "prepublishOnly": "npm run build",
-        "publish:npm": "npm publish"
+        "publish:npm": "npm version patch && npm publish && git push origin --tags"
     },
     "files": [
         "dist/",
